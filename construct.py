@@ -4,12 +4,13 @@ class Fighter:
 
     def __init__(self, givenName, statPoints):
             self.name = str(givenName)
-            self.hp = -1
+            self.hp = None
             self.atk = 0
             self.str = 0
             self.defc = 0
             self.spd = 0
             self.agi = 0
+            self.pos = None
             self.alive = True
             self.points = int(statPoints)
 
@@ -36,6 +37,9 @@ class Fighter:
 
     def getAgi(self):
         return int(self.agi)
+
+    def getPos(self):
+        return int(self.pos)
 
     def getAlive(self):
         return self.alive
@@ -78,6 +82,9 @@ class Fighter:
             self.alive = True
         else:
             self.alive = False
+
+    def setPos(self, value):
+        self.pos = value
 
 #==============================================================================
 #Print Commands
@@ -130,13 +137,34 @@ class Fighter:
         init = random.randint(0, 5) + self.spd
         return init
 
+    def joinArena(self, arena):
+        arena.append(self)
+        self.setPos(len(arena) - 1)
+
+    def killFighter(self, arena):
+        deadPos = self.getPos()
+        arena.remove(self)
+        for i in range(deadPos, len(arena)):
+            fighter = arena[i]
+            currPos = fighter.getPos()
+            fighter.setPos(currPos - 1)
+
 #==============================================================================
 # Master commands
 
-def takeHit(target, atker):
+def takeHit(target, atker, arena):
     print(atker.getName(), "attacks", target.getName())
     if (target.calcDodge() == False):
         target.takeDamage(atker.calcDamage(), target.calcArmour())
         target.updateAlive()
+        if target.getAlive() == False:
+            target.killFighter(arena)
 
+def findTarget(arena, pos):
+    while True:
+        target = random.randint(0, (len(arena) - 1))
+        if target != pos:
+            targetPos = target
+            break
+    return targetPos
 #==============================================================================
