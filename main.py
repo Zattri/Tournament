@@ -1,3 +1,5 @@
+import construct
+
 # Tournament AI game
 
 # Construct Class -
@@ -28,3 +30,7 @@
 #   Multi-player fights?
 #   Each attack hits a target
 #   Target takes damage based off of attack - def etc etc
+
+dave = construct.Fighter("Dave", 10)
+dave.setAll(10, 3, 6, 5, 4, 2)
+dave.printStats()
