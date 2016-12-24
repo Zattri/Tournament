@@ -1,4 +1,4 @@
-import math
+import math, random
 
 class Fighter:
 
@@ -43,13 +43,17 @@ class Fighter:
 #==============================================================================
 # Set Commands
 
-    def setAll(self, hp, atk, strn, defc, spd, agi):
-        self.hp = hp
+    def setAll(self, health, atk, strn, defc, spd, agi):
+        self.health = health
+        self.hp = health
         self.atk = atk
         self.str = strn
         self.defc = defc
         self.spd = spd
         self.agi = agi
+
+    def setHealth(self, value):
+        self.health = value
 
     def setHP(self, value):
         self.hp = value
@@ -80,20 +84,39 @@ class Fighter:
 
     def printStats(self):
         # Finish later
-        print(self.name, "\nHP:", self.hp, "\nAtk:", self.atk, "Str:", self.str, "Def:", self.defc, "Spd:", self.spd, "Agi:", self.agi)
+        print(self.name, "\nHP:", self.hp, "Def: ", self.defc, "\nAtk:", self.atk, "Str:", self.str, "Spd:", self.spd, "Agi:", self.agi)
+
+    def printDodge(self):
+        print(self.name, "dodged the attack!")
+
+    def printDeath(self):
+        print(self.name, "has fallen in battle!")
 
 #==============================================================================
 #Game Commands
 
+    # Updates the living condition if the fighter is dead
+    def updateAlive(self):
+        if self.hp <= 0:
+            self.alive = False
+            self.printDeath()
+
     # Take HP damage from attack input and armour value
     def takeDamage(self, attack, armour):
-        damage = attack - armour
+        damage = int(attack) - int(armour)
         self.hp -= damage
+        print(self.name, "took ", damage, "damage.")
 
     # Calculate the damage to be dealt
     def calcDamage(self):
-        damage = getAtk() + getStr()
+        damage = self.getAtk() + self.getStr()
+        return damage
 
     # Calculate the armour to use for resisting damage
     def calcArmour(self):
         armour = math.floor(self.defc / 2)
+        return armour
+
+    def calcInit(self):
+        init = random.randint(0, 5) + self.spd
+        return init
