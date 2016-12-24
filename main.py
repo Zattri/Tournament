@@ -15,19 +15,19 @@ battle = True
 p1 = arena[0]
 p2 = arena[-1]
 # Fight loop
+p1.printStats()
+p2.printStats()
+print("Fight begins!\n")
 while battle == True:
     if p1.getAlive() == True and p2.getAlive() == True:
-        p1.printStats()
-        p2.printStats()
         if (p1.calcInit() >= p2.calcInit()):
-            p2.takeDamage(p1.calcDamage(), p2.calcArmour())
-            p2.updateAlive()
-            if p2.getAlive() == False:
-                p1.takeDamage(p2.calcDamage(), p1.calcArmour())
+            construct.takeHit(p2, p1)
+            if p2.getAlive() == True:
+                construct.takeHit(p1, p2)
         else:
-            p1.takeDamage(p2.calcDamage(), p1.calcArmour())
-            if p1.getAlive() == False:
-                p2.takeDamage(p1.calcDamage(), p2.calcArmour())
+            construct.takeHit(p1, p2)
+            if p1.getAlive() == True:
+                construct.takeHit(p2, p1)
     else:
         break
 print("A winner has been crowned")

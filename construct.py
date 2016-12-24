@@ -84,16 +84,17 @@ class Fighter:
 
     def printStats(self):
         # Finish later
-        print(self.name, "\nHP:", self.hp, "Def: ", self.defc, "\nAtk:", self.atk, "Str:", self.str, "Spd:", self.spd, "Agi:", self.agi)
+        print(self.name, "\nHP:", self.hp, "Def: ", self.defc, "\nAtk:", self.atk, "Str:", self.str, "Spd:", self.spd, "Agi:", self.agi, "\n")
 
     def printDodge(self):
-        print(self.name, "dodged the attack!")
+        print(self.name, "dodged the attack!\n")
 
     def printDeath(self):
-        print(self.name, "has fallen in battle!")
+        print(self.name, "has fallen in battle!\n")
 
 #==============================================================================
 #Game Commands
+#==============================================================================
 
     # Updates the living condition if the fighter is dead
     def updateAlive(self):
@@ -105,11 +106,11 @@ class Fighter:
     def takeDamage(self, attack, armour):
         damage = int(attack) - int(armour)
         self.hp -= damage
-        print(self.name, "took ", damage, "damage.")
+        print(self.name, "took", damage, "damage.\n")
 
     # Calculate the damage to be dealt
     def calcDamage(self):
-        damage = self.getAtk() + self.getStr()
+        damage = self.getAtk() + random.randint(0, self.getStr())
         return damage
 
     # Calculate the armour to use for resisting damage
@@ -117,6 +118,25 @@ class Fighter:
         armour = math.floor(self.defc / 2)
         return armour
 
+    def calcDodge(self):
+        dodged = False
+        targetInt = random.randint(0, 100)
+        if targetInt < self.agi:
+            dodged = True
+            self.printDodge()
+        return dodged
+
     def calcInit(self):
         init = random.randint(0, 5) + self.spd
         return init
+
+#==============================================================================
+# Master commands
+
+def takeHit(target, atker):
+    print(atker.getName(), "attacks", target.getName())
+    if (target.calcDodge() == False):
+        target.takeDamage(atker.calcDamage(), target.calcArmour())
+        target.updateAlive()
+
+#==============================================================================
