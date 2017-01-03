@@ -1,10 +1,16 @@
 import math, random
 
+firstNames = ["Adam", "Geoffrey", "Gilbert", "Henry", "Hugh", "John", "Nicholas",
+ "Peter", "Ralf", "Richard", "Robert", "Roger", "Simon", "Thomas", "Walter", "William"]
+lastNames = ["Abbot", "Adams", "Barret", "Black", "Britton"]
+
 class Fighter:
 
-    def __init__(self, givenName, statPoints):
-            self.name = str(givenName)
-            self.hp = None
+    def __init__(self, skillLevel, statPoints):
+            self.name = str(firstNames[random.randint(0, len(firstNames) - 1)] + " "
+            + lastNames[random.randint(0, len(lastNames) - 1)])
+            self.health = 1
+            self.hp = 1
             self.atk = 0
             self.str = 0
             self.defc = 0
@@ -12,7 +18,8 @@ class Fighter:
             self.agi = 0
             self.pos = None
             self.alive = True
-            self.points = int(statPoints)
+            self.statPoints = int(statPoints)
+            self.level = int(skillLevel)
 
 #==============================================================================
 # Fetch Commands
@@ -49,7 +56,6 @@ class Fighter:
 
     def setAll(self, health, atk, strn, defc, spd, agi):
         self.health = health
-        self.hp = health
         self.atk = atk
         self.str = strn
         self.defc = defc
@@ -86,12 +92,16 @@ class Fighter:
     def setPos(self, value):
         self.pos = value
 
+    def resetHP(self):
+        self.hp = (self.health * 5)
+
 #==============================================================================
 #Print Commands
 
     def printStats(self):
         # Finish later
-        print(self.name, "\nHP:", self.hp, "Def: ", self.defc, "\nAtk:", self.atk, "Str:", self.str, "Spd:", self.spd, "Agi:", self.agi, "\n")
+        print(self.name, "\nHP:", self.hp, "Def: ", self.defc, "\nAtk:",
+         self.atk, "Str:", self.str, "Spd:", self.spd, "Agi:", self.agi, "\n")
 
     def printDodge(self):
         print(self.name, "dodged the attack!\n")
@@ -102,6 +112,38 @@ class Fighter:
 #==============================================================================
 #Game Commands
 #==============================================================================
+
+    # Randomly generates stats based off of skill points and level
+    def genStats(self):
+        self.health =+ self.level
+        self.atk =+ self.level
+        self.str =+ self.level
+        self.defc =+ self.level
+        self.agi =+ self.level
+        self.spd =+ self.level
+
+        for i in range(0, self.statPoints):
+            chosenStat = random.randint(0,5)
+
+            if (chosenStat == 0):
+                self.health += 1
+
+            elif (chosenStat == 1):
+                self.atk += 1
+
+            elif (chosenStat == 2):
+                self.str += 1
+
+            elif (chosenStat == 3):
+                self.defc += 1
+
+            elif (chosenStat == 4):
+                self.agi += 1
+
+            elif (chosenStat == 5):
+                self.spd += 1
+
+        self.resetHP()
 
     # Updates the living condition if the fighter is dead
     def updateAlive(self):
@@ -167,4 +209,5 @@ def findTarget(arena, pos):
             targetPos = target
             break
     return targetPos
+
 #==============================================================================

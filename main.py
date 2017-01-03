@@ -1,13 +1,13 @@
 import construct
 
-dave = construct.Fighter("Dave", 10)
-dave.setAll(10, 3, 6, 5, 4, 5)
+dave = construct.Fighter(3, 10)
+dave.genStats()
 
-bob = construct.Fighter("Bob", 10)
-bob.setAll(10, 4, 5, 3, 4, 5)
+bob = construct.Fighter(3, 10)
+bob.genStats()
 
-phil = construct.Fighter("Phil", 10)
-phil.setAll(10, 5, 3, 4, 6, 5)
+phil = construct.Fighter(3, 10)
+phil.genStats()
 
 # Gameloop
 arena = []
