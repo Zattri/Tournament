@@ -4,12 +4,13 @@ class Fighter:
 
     def __init__(self, givenName, statPoints):
             self.name = str(givenName)
-            self.hp = None
-            self.atk = 0
-            self.str = 0
-            self.defc = 0
-            self.spd = 0
-            self.agi = 0
+            self.health = 1
+            self.hp = 0
+            self.atk = 1
+            self.str = 1
+            self.defc = 1
+            self.spd = 1
+            self.agi = 1
             self.pos = None
             self.alive = True
             self.points = int(statPoints)
@@ -149,6 +150,33 @@ class Fighter:
             currPos = fighter.getPos()
             fighter.setPos(currPos - 1)
 
+    def resetStats(self):
+        self.hp = self.health * 5
+
+    # Assign stat values to a character
+    def genStats(self):
+        for i in range(0, self.points):
+            assignInt = random.randint(1, 6)
+            if assignInt == 1:
+                self.health += 1
+
+            elif assignInt == 2:
+                self.atk += 1
+
+            elif assignInt == 3:
+                self.str += 1
+
+            elif assignInt == 4:
+                self.defc += 1
+
+            elif assignInt == 5:
+                self.spd += 1
+
+            elif assignInt == 6:
+                self.agi += 1
+
+            else:
+                print("Stat not defined")
 #==============================================================================
 # Master commands
 
@@ -167,4 +195,6 @@ def findTarget(arena, pos):
             targetPos = target
             break
     return targetPos
+
+
 #==============================================================================
