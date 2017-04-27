@@ -33,3 +33,6 @@ while battle == True:
     else:
         break
 print("A winner has been crowned -", arena[0].getName())
+# Input added so testing doesn't finish immediately
+input()
+
