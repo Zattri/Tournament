@@ -1,3 +1,4 @@
+# Use an as to shorten the import
 import construct
 
 dave = construct.Fighter("Dave", 10)
@@ -32,6 +33,7 @@ while battle == True:
             construct.takeHit(arena[target], fighter, arena)
     else:
         break
+    
 print("A winner has been crowned -", arena[0].getName())
 # Input added so testing doesn't finish immediately
 input()

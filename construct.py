@@ -118,13 +118,11 @@ class Fighter:
 
     # Calculate the damage to be dealt
     def calcDamage(self):
-        damage = self.getAtk() + random.randint(0, self.getStr())
-        return damage
+        return self.getAtk() + random.randint(0, self.getStr())
 
     # Calculate the armour to use for resisting damage
     def calcArmour(self):
-        armour = math.floor(self.defc / 2)
-        return armour
+        return math.floor(self.defc / 2)
 
     def calcDodge(self):
         dodged = False
@@ -135,8 +133,7 @@ class Fighter:
         return dodged
 
     def calcInit(self):
-        init = random.randint(0, 5) + self.spd
-        return init
+        return random.randint(0, 5) + self.spd
 
     def joinArena(self, arena):
         arena.append(self)
