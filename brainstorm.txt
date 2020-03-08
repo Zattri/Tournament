@@ -35,20 +35,3 @@ Tournament setup -
   Multi-player fights?
   Each attack hits a target
   Target takes damage based off of attack - def etc etc
-
-
-
-
-OLD CODE
-
-  if p1.getAlive() == True and p2.getAlive() == True:
-        if (p1.calcInit() >= p2.calcInit()):
-            construct.takeHit(p2, p1)
-            if p2.getAlive() == True:
-                construct.takeHit(p1, p2)
-        else:
-            construct.takeHit(p1, p2)
-            if p1.getAlive() == True:
-                construct.takeHit(p2, p1)
-    else:
-        break
